@@ -9,25 +9,28 @@ document.getElementById('input-search').addEventListener('keyup', (event) => { e
 
 function getNameFromInput() {
     let userName = document.getElementById('input-search').value
-    getUserProfile(userName)
+    if(validateEmptyInput(userName)) return
+    getUserData(userName)
 }
 
-async function getUserProfile(userName) {
+function validateEmptyInput(userName){
+    if(userName.length === 0){
+        alert('Preencha o campo com um nome de usuário do GitHub!')
+        return true
+    }
+}
+
+async function getUserData(userName) {
     const userResponse = await getUser(userName)
+
+    if(userResponse.message === "Not Found") {
+        screen.renderNotFound()
+        return
+    }
+    const repositoriesResponse = await getRepos(userName)
+
     user.setInfo(userResponse)
+    user.setRepositories(repositoriesResponse)
 
     screen.renderUser(user)
 }
-
-// function getUserRepositories(userName) {
-//     getRepos(userName).then(reposData => {
-//         let repositoriesItems = ""
-//         reposData.forEach(repo => {
-//             repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`
-//         })
-//         document.querySelector('.profile-data').innerHTML += `<div class="repositories section">
-//                                                                 <h2>Repositórios</h2>
-//                                                                 <ul>${repositoriesItems}</ul>
-//                                                             </div>`
-//     })
-// }
