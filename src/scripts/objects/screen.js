@@ -6,7 +6,9 @@ const screen = {
         userData.repositories.forEach(repo => repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
 
         let userEvents = ''
-        userData.events.forEach(events => userEvents += `<li><p>${events.repo.name}<span>${events.payload.commits}</span></p></li>`)
+         userData.events.forEach(event => {
+            userEvents += `<li><p>${event.repo.name} | <span>Teste</span></p></li>`
+        })
 
         console.log(userEvents)
         this.userProfile.innerHTML = 
