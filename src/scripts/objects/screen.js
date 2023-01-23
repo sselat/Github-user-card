@@ -1,16 +1,27 @@
 const screen = {
     userProfile: document.querySelector('.profile-data'),
+    headerData: document.querySelector('header'),
     renderUser(userData) {
-        
         let repositoriesItems = ''
-        userData.repositories.forEach(repo => repositoriesItems += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
+        
+        userData.repositories.forEach(repo => repositoriesItems += `<li>
+        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+        <ul class="badges">
+        <li>🍴 ${0}</li>
+        <li>⭐ ${0}</li>
+        <li>👁️ ${0}</li>
+        <li>💻 ${0}</li>
+        </li>`)
 
         let userEvents = ''
          userData.events.forEach(event => {
-            userEvents += `<li><p>${event.repo.name} | <span>Teste</span></p></li>`
+            if(event.type === 'CreateEvent'){
+                userEvents += `<li><p>${event.repo.name} | <span>Criação de Repositório</span></p></li>`
+            } else {
+                userEvents += `<li><p>${event.repo.name} | <span>${event.payload.commits[0].message}</span></p></li>`
+            }
         })
-
-        console.log(userEvents)
+        this.headerData.innerHTML += '<hr>'
         this.userProfile.innerHTML = 
             `<div class="info">
                 <img src="${userData.avatarUrl}}" alt="Foto de perfil do usuário">
@@ -18,6 +29,9 @@ const screen = {
                     <h1>${userData.name ?? 'Não possui nome cadastrado &#128546;'}</h1>
                     <p>${userData.bio ?? 'Não possui bio cadastrada &#128546;'}</p>
                     <br><hr><br>
+                    <span class="material-symbols-outlined">
+                    groups
+                    </span>
                     <p>Seguidores: <span>${userData.followers ?? 'Não possui seguidores &#128546;'}</span></p>
                     <p>Seguindo: <span>${userData.following ?? 'Não está seguindo ninguém &#128546;'}</span></p>
                 </div>
@@ -31,6 +45,18 @@ const screen = {
                 <h1>Repositórios</h1>
                 <ul>
                 ${repositoriesItems}
+                </ul>
+            </div>
+            `
+        }
+        if(userData.events.length > 0){
+            this.userProfile.innerHTML += 
+            `
+            <div class="events">
+            <br>
+                <h1>Últimos Eventos</h1>
+                <ul>
+                ${userEvents}
                 </ul>
             </div>
             `

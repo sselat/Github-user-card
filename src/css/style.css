@@ -24,6 +24,11 @@ main {
   padding: 50px 0 0;      
 }
 
+header hr {
+  width: 90%;
+  margin-top: 40px;
+}
+
 .devicon-github-original{
   font-size: 60px;
   margin-bottom: 30px;
@@ -115,7 +120,7 @@ main {
   width: 100%;
   background-color: #eee;
   top: 0;
-  left: -35%;
+  left: -50%;
   z-index: -1;
 }
 
@@ -170,6 +175,24 @@ main {
   display: none;
 }
 
+/* EVENTS */
+.container .profile-data .events h1 {
+  margin-bottom: 10px;
+}
+.container .profile-data .events ul li {
+  padding: 5px;
+  transition: .3s;
+}
+.container .profile-data .events ul li p{
+  font-weight: bold;
+}
+.container .profile-data .events ul li:hover p{
+  color: hotpink;
+  cursor: pointer;
+}
+.container .profile-data .events ul li:hover span{
+  color: black;
+}
 @media (max-width: 1280px) {
   .container {
     flex-direction: column;

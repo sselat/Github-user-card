@@ -7,7 +7,11 @@ async function getEvents(userName) {
             return item
         }
     })
-    return await filteredResponse.slice(0, 10)
+    if (filteredResponse.length > 10) {
+        return await filteredResponse.slice(0, 10)
+    } else {
+        return await filteredResponse
+    }
 }
 
 export { getEvents }
