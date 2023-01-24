@@ -5,12 +5,14 @@ const screen = {
         let repositoriesItems = ''
         
         userData.repositories.forEach(repo => repositoriesItems += `<li>
-        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-        <ul class="badges">
-        <li>🍴 ${0}</li>
-        <li>⭐ ${0}</li>
-        <li>👁️ ${0}</li>
-        <li>💻 ${0}</li>
+        <a href="${repo.html_url}" target="_blank">
+        ${repo.name}<br><br>
+        <span>🍴 ${repo.forks_count}</span>
+        <span>⭐ ${repo.stargazers_count}</span>
+        <span>👁️ ${repo.watchers_count}</span>
+        <span>💻 ${repo.language || 'None'}</span>
+        </a>
+        
         </li>`)
 
         let userEvents = ''
